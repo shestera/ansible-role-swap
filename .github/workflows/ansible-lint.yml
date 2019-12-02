@@ -18,7 +18,7 @@ jobs:
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1.1.1
     - name: Install Ansible ${{ matrix.ansible-version }}
-      run: pip install ansible-lint ansible~=${{ matrix.ansible-version }}
+      run: pip install ansible-lint ansible==${{ matrix.ansible-version }}.*
     - name: ansible-lint
       run: ansible-lint .
 
