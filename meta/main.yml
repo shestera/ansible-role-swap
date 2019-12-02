@@ -1,0 +1,28 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: shestera
+  description: Swap file and swap management for Linux.
+  role_name: swap
+  license: "license (BSD, MIT)"
+  min_ansible_version: 3.0
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+  galaxy_tags:
+    - system
+    - server
+    - swap
+    - swapfile
+    - pagefile
+    - performance
+    - memory
+    - ram

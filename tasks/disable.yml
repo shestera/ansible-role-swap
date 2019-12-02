@@ -1,0 +1,27 @@
+---
+- name: Disable swap (if configured).
+  command: swapoff -a
+  tags: ['skip_ansible_lint']
+
+- name: Ensure swap file doesn't exist (if configured).
+  file:
+    path: "{{ swap_file_path }}"
+    state: absent
+
+- name: Check if cgroup memory and swapaccount in kernel
+  shell: grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub | grep -c "cgroup_enable=memory swapaccount=1"
+  register: cgroup_status
+  ignore_errors: true
+  when: ansible_os_family == 'Debian'
+
+- name: Enable cgroup memory and swapaccount
+  lineinfile:
+    dest: "/etc/default/grub"
+    regexp: 'GRUB_CMDLINE_LINUX_DEFAULT="(.*)"'
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="\1 cgroup_enable=memory swapaccount=1"'
+    backrefs: yes
+  when:
+    - cgroup_status.stdout == "0"
+    - ansible_os_family == 'Debian'
+  notify:
+    - update grub
