@@ -10,7 +10,7 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [2.7, 3.7]
-        ansible-version: [2.9.1]
+        ansible-version: [2.9, 2.4]
 
     steps:
     - uses: actions/checkout@v1
@@ -18,10 +18,7 @@ jobs:
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1.1.1
     - name: Install Ansible ${{ matrix.ansible-version }}
-      run: pip install ansible-lint ansible==${{ matrix.ansible-version }}
+      run: pip install ansible-lint ansible~=${{ matrix.ansible-version }}
     - name: ansible-lint
       run: ansible-lint .
-#     - name: ansible-lint
-#       uses: ansible/ansible-lint-action@v4.1.0.post0
-#       with:
-#         targets: .
+
