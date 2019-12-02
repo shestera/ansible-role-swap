@@ -9,7 +9,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: ansible-lint
-      uses: ansible/ansible-lint-action@v4.1.0.post0
-      with:
-        targets: .
+    - uses: actions/setup-python@v1.1.1
+    - run: pip install ansible-lint
+    - run: ansible-lint --version
+    - run: ansible-lint .
+#     - name: ansible-lint
+#       uses: ansible/ansible-lint-action@v4.1.0.post0
+#       with:
+#         targets: .
